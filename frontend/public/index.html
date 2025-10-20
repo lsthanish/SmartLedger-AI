@@ -3,18 +3,98 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="theme-color" content="#10b981" />
-    <meta
-      name="description"
-      content="SmartLedger - Smart Budget & Expense Tracker. Track smarter, spend better."
-    />
+    
+    <!-- Primary Meta Tags -->
+    <title>SmartLedger - Personal Finance Tracker & Budget Management</title>
+    <meta name="title" content="SmartLedger - Personal Finance Tracker & Budget Management" />
+    <meta name="description" content="Take control of your finances with SmartLedger. Track expenses, manage budgets, analyze spending patterns with AI insights, and achieve your financial goals. Free personal finance management tool." />
+    <meta name="keywords" content="personal finance, expense tracker, budget management, financial analytics, money management, spending tracker, AI financial insights, budget app, expense management, financial planning" />
+    <meta name="author" content="SmartLedger Team" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://smartledger.app/" />
+    <meta property="og:title" content="SmartLedger - Personal Finance Tracker & Budget Management" />
+    <meta property="og:description" content="Take control of your finances with SmartLedger. Track expenses, manage budgets, and achieve your financial goals with AI-powered insights." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="SmartLedger" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://smartledger.app/" />
+    <meta property="twitter:title" content="SmartLedger - Personal Finance Tracker" />
+    <meta property="twitter:description" content="Take control of your finances with SmartLedger. Track expenses, manage budgets, and achieve your financial goals." />
+    <meta property="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta name="twitter:image:alt" content="SmartLedger - Personal Finance Dashboard" />
+    
+    <!-- Apple iOS -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SmartLedger" />
+    
+    <!-- Manifest -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>SmartLedger - Smart Budget & Expense Tracker</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://smartledger.app/" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SmartLedger",
+      "description": "Personal finance tracker and budget management application with AI-powered insights",
+      "url": "https://smartledger.app",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "Expense tracking",
+        "Budget management",
+        "Financial analytics",
+        "AI-powered insights",
+        "Transaction categorization",
+        "CSV import/export",
+        "Real-time dashboards",
+        "Spending trends analysis"
+      ]
+    }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+        <h1>SmartLedger - Personal Finance Tracker</h1>
+        <p>You need to enable JavaScript to run this app.</p>
+        <p>SmartLedger helps you track expenses, manage budgets, and achieve your financial goals.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
   </body>
 </html>

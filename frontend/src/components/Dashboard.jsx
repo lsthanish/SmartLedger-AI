@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
+import axiosInstance from '../lib/axios';
 import { 
     DollarSign, 
     TrendingUp, 
@@ -12,7 +12,8 @@ import {
     ArrowUpRight,
     ArrowDownRight,
     Plus,
-    MoreHorizontal
+    MoreHorizontal,
+    CreditCard
 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -26,11 +27,11 @@ const Dashboard = () => {
 
     const fetchDashboardData = async () => {
         try {
-            const response = await axios.get('/api/dashboard');
+            const response = await axiosInstance.get('/dashboard');
             setDashboardData(response.data);
         } catch (error) {
             console.error('Error fetching dashboard data:', error);
-            toast.error('Failed to load dashboard data');
+            toast.error(error.response?.data?.detail || 'Failed to load dashboard data');
         } finally {
             setLoading(false);
         }

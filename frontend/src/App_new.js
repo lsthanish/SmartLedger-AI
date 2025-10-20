@@ -49,7 +49,7 @@ function App() {
 
     // Check authentication on app load
     useEffect(() => {
-        const checkAuth = async () => {
+        const checkAuth = async() => {
             if (token) {
                 try {
                     const response = await axios.get('/api/auth/me');
@@ -84,10 +84,11 @@ function App() {
     };
 
     if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-            </div>
+        return ( <
+            div className = "flex items-center justify-center min-h-screen" >
+            <
+            div className = "animate-spin rounded-full h-32 w-32 border-b-2 border-primary" > < /div> <
+            /div>
         );
     }
 
@@ -100,34 +101,60 @@ function App() {
         toggleDarkMode,
     };
 
-    return (
-        <HelmetProvider>
-            <AuthContext.Provider value={authContextValue}>
-                <Router>
-                    <div className="App">
-                        <Routes>
-                            {/* Public routes */}
-                            <Route path="/" element={user ? <Navigate to="/dashboard" /> : <LandingPage />} />
-                            <Route path="/auth" element={user ? <Navigate to="/dashboard" /> : <AuthPage />} />
+    return ( <
+            HelmetProvider >
+            <
+            AuthContext.Provider value = { authContextValue } >
+            <
+            Router >
+            <
+            div className = "App" >
+            <
+            Routes > { /* Public routes */ } <
+            Route path = "/"
+            element = { user ? < Navigate to = "/dashboard" / > : < LandingPage / > }
+            /> <
+            Route path = "/auth"
+            element = { user ? < Navigate to = "/dashboard" / > : < AuthPage / > }
+            />
 
-                            {/* Protected routes */}
-                            <Route path="/dashboard" element={user ? <Layout><Dashboard /></Layout> : <Navigate to="/auth" />} />
-                            <Route path="/transactions" element={user ? <Layout><Transactions /></Layout> : <Navigate to="/auth" />} />
-                            <Route path="/budgets" element={user ? <Layout><Budgets /></Layout> : <Navigate to="/auth" />} />
-                            <Route path="/analytics" element={user ? <Layout><Analytics /></Layout> : <Navigate to="/auth" />} />
-                            <Route path="/ai-insights" element={user ? <Layout><AIInsights /></Layout> : <Navigate to="/auth" />} />
+            { /* Protected routes */ } <
+            Route path = "/dashboard"
+            element = {
+                user ? < Layout > < Dashboard / > < /Layout> : <Navigate to="/auth
+                " />} /> <
+                Route path = "/transactions"
+                element = {
+                    user ? < Layout > < Transactions / > < /Layout> : <Navigate to="/auth
+                    " />} /> <
+                    Route path = "/budgets"
+                    element = {
+                        user ? < Layout > < Budgets / > < /Layout> : <Navigate to="/auth
+                        " />} /> <
+                        Route path = "/analytics"
+                        element = {
+                            user ? < Layout > < Analytics / > < /Layout> : <Navigate to="/auth
+                            " />} /> <
+                            Route path = "/ai-insights"
+                            element = {
+                                user ? < Layout > < AIInsights / > < /Layout> : <Navigate to="/auth
+                                " />} />
 
-                            {/* Catch all route */}
-                            <Route path="*" element={<Navigate to="/" />} />
-                        </Routes>
+                                { /* Catch all route */ } <
+                                Route path = "*"
+                                element = { < Navigate to = "/" / > }
+                                /> <
+                                /Routes>
 
-                        {/* Toast notifications */}
-                        <Toaster position="top-right" richColors closeButton theme={darkMode ? 'dark' : 'light'} />
-                    </div>
-                </Router>
-            </AuthContext.Provider>
-        </HelmetProvider>
-    );
-}
+                                { /* Toast notifications */ } <
+                                Toaster position = "top-right"
+                                richColors closeButton theme = { darkMode ? 'dark' : 'light' }
+                                /> <
+                                /div> <
+                                /Router> <
+                                /AuthContext.Provider> <
+                                /HelmetProvider>
+                            );
+                        }
 
-export default App;
+                        export default App;

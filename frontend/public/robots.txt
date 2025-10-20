@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /transactions
+Disallow: /budgets
+Disallow: /analytics
+Allow: /
+
+Sitemap: https://smartledger.app/sitemap.xml

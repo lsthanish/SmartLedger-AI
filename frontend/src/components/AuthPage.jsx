@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import axios from 'axios';
+import { signUp, signIn } from '../lib/supabase';
+import axiosInstance from '../lib/axios';
 import { AuthContext } from '../App';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -89,33 +90,96 @@ const AuthPage = () => {
     setLoading(true);
 
     try {
-      const endpoint = `${process.env.REACT_APP_API_URL || 'http://localhost:8001'}/api/auth/${isLogin ? 'login' : 'register'}`;
-      const submitData = isLogin 
-        ? { email: formData.email, password: formData.password }
-        : { 
-            full_name: formData.full_name,
-            email: formData.email, 
-            password: formData.password 
-          };
-      
-      const response = await axios.post(endpoint, submitData);
-      
-      login(response.data.access_token, response.data.user);
-      toast.success(isLogin ? 'Welcome back!' : 'Account created successfully! Welcome to SmartLedger!');
-    } catch (error) {
-      const message = error.response?.data?.detail || 'Something went wrong. Please try again.';
-      toast.error(message);
-      
-      // Handle specific validation errors from backend
-      if (error.response?.status === 422) {
-        const backendErrors = {};
-        error.response.data.detail?.forEach(err => {
-          if (err.loc && err.loc.length > 1) {
-            backendErrors[err.loc[1]] = err.msg;
+      let authData;
+      let userProfile;
+
+      if (isLogin) {
+        // Sign in with Supabase Auth
+        const { data, error } = await signIn(formData.email, formData.password);
+        
+        if (error) {
+          throw new Error(error.message || 'Invalid email or password');
+        }
+
+        authData = data;
+        
+        // Get the access token
+        const accessToken = data.session?.access_token;
+        
+        if (!accessToken) {
+          throw new Error('Failed to get access token');
+        }
+
+        // Fetch user profile from backend
+        const response = await axiosInstance.get('/auth/me', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
           }
         });
-        setErrors(backendErrors);
+        
+        userProfile = response.data;
+        
+        // Store token and login
+        login(accessToken, userProfile);
+        toast.success('Welcome back!');
+        
+      } else {
+        // Sign up with Supabase Auth
+        const { data, error } = await signUp(
+          formData.email, 
+          formData.password, 
+          formData.full_name
+        );
+        
+        if (error) {
+          // Handle common Supabase Auth errors
+          if (error.message.includes('already registered') || error.message.includes('already exists')) {
+            throw new Error('Email already registered');
+          } else if (error.message.includes('Password should be at least')) {
+            throw new Error('Password must be at least 6 characters');
+          } else {
+            throw new Error(error.message || 'Failed to create account');
+          }
+        }
+
+        authData = data;
+        
+        // Get the access token
+        const accessToken = data.session?.access_token;
+        
+        if (!accessToken) {
+          throw new Error('Account created but failed to get access token. Please try signing in.');
+        }
+
+        // Create user profile via backend
+        try {
+          const response = await axiosInstance.post('/auth/register', {
+            email: formData.email,
+            password: formData.password,
+            full_name: formData.full_name
+          });
+          
+          userProfile = response.data.user;
+        } catch (backendError) {
+          // If backend fails, fetch the profile instead
+          console.warn('Backend registration failed, fetching profile:', backendError);
+          const response = await axiosInstance.get('/auth/me', {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          });
+          userProfile = response.data;
+        }
+        
+        // Store token and login
+        login(accessToken, userProfile);
+        toast.success('Account created successfully! Welcome to SmartLedger!');
       }
+      
+    } catch (error) {
+      const message = error.message || 'Something went wrong. Please try again.';
+      toast.error(message);
+      console.error('Auth error:', error);
     } finally {
       setLoading(false);
     }
