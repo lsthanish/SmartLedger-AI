@@ -66,7 +66,7 @@ SmartLedger is a modern, responsive web application for managing personal financ
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/lsthanish/SmartLedger-ai.git
+git clone https://github.com/lsthanish/SmartLedger-AI.git
 cd SmartLedger
 ```
 
@@ -505,4 +505,4 @@ For issues, questions, or contributions:
 
 **Version:** 2.0.0  
 **Last Updated:** October 21, 2025  
-**Repository:** https://github.com/lsthanish/SmartLedger-ai
+**Repository:** https://github.com/lsthanish/SmartLedger-AI
